@@ -3,7 +3,8 @@ import userModel from "../models/User.model.js";
 
 const CrChecking = async (req, res, next) => {
   try {
-    const token = req.cookies.userToken;
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
 
     if (!token) {
       return res.status(403).json({ msg: "No Token is given" });

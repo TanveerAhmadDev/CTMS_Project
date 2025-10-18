@@ -33,13 +33,8 @@ export const universalLogin = async (req, res) => {
         expiresIn: "2d",
       });
 
-      res.cookie("adminToken", accessToken, {
-        httpOnly: true,
-        secure: true, // MUST be true in production (HTTPS only)
-        sameSite: "None",
-      });
-
       return res.status(200).json({
+        token: accessToken, // <== include the token here
         role: "admin",
         message: "Login successful",
         redirectUrl: "/dashboard",
@@ -66,12 +61,6 @@ export const universalLogin = async (req, res) => {
       expiresIn: "50m",
     });
 
-    res.cookie("userToken", token, {
-      httpOnly: true,
-      secure: true, // MUST be true in production (HTTPS only)
-      sameSite: "None",
-    });
-
     let redirectUrl = "/";
     if (user.userRole === "Student") {
       redirectUrl = "/student/dashboard";
@@ -80,6 +69,7 @@ export const universalLogin = async (req, res) => {
     }
 
     return res.status(200).json({
+      token, // include token here
       role: "user",
       message: "Login successful",
       redirectUrl,

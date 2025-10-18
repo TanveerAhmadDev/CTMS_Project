@@ -23,13 +23,15 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-console.log(serverUrl);
+      console.log(serverUrl);
 
-
-      const result = await axios.post(serverUrl + "/api/auth/login",
+      const result = await axios.post(
+        serverUrl + "/api/auth/login",
         { identifier, password },
         { withCredentials: true }
       );
+
+      localStorage.setItem("token", res.data.token);
 
       toast.success(result.data.message);
 
