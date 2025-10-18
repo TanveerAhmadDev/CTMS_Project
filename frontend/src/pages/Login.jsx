@@ -31,7 +31,7 @@ const Login = () => {
         { withCredentials: true }
       );
 
-      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("token", result.data.token);
 
       toast.success(result.data.message);
 
