@@ -13,11 +13,11 @@ const UserDataProvider = ({ children }) => {
   const [editProfile, setEditProfile] = useState(false);
   const [reloginMsg, setReLoginMsg] = useState(null);
 
-
   let serverUrl = "https://ctms-project.vercel.app";
 
   useEffect(() => {
     async function fetchUserData() {
+      const token = localStorage.getItem("token");
       try {
         const result = await axios.get(serverUrl + "/api/auth/userdata", {
           headers: {
