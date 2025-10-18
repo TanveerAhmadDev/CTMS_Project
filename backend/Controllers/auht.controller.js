@@ -36,7 +36,7 @@ export const universalLogin = async (req, res) => {
       res.cookie("adminToken", accessToken, {
         httpOnly: true,
         secure: true, // MUST be true in production (HTTPS only)
-        sameSite: "lax",
+        sameSite: "None",
       });
 
       return res.status(200).json({
@@ -69,7 +69,7 @@ export const universalLogin = async (req, res) => {
     res.cookie("userToken", token, {
       httpOnly: true,
       secure: true, // MUST be true in production (HTTPS only)
-      sameSite: "lax",
+      sameSite: "None",
     });
 
     let redirectUrl = "/";
@@ -174,13 +174,13 @@ export const logout = async (req, res) => {
   res.clearCookie("userToken", {
     httpOnly: true,
     secure: true, // MUST be true in production (HTTPS only)
-    sameSite: "lax", // Must match the setting used when you set the cookie
+    sameSite: "None", // Must match the setting used when you set the cookie
   });
 
   res.clearCookie("adminToken", {
     httpOnly: true,
     secure: true, // MUST be true in production (HTTPS only)
-    sameSite: "lax",
+    sameSite: "None",
   });
 
   res.json({ message: "Logged out successfully" });
