@@ -13,7 +13,7 @@ const UserDataProvider = ({ children }) => {
   const [editProfile, setEditProfile] = useState(false);
   const [reloginMsg, setReLoginMsg] = useState(null);
 
-  let serverUrl = "http://192.168.1.59:8080";
+  let serverUrl = "https://ctms-project.vercel.app";
 
   useEffect(() => {
     async function fetchUserData() {
