@@ -9,8 +9,9 @@ import cors from "cors";
 import AuthRouter from "./Routes/auth.routes.js";
 import taskRouter from "./Routes/Task.Routes.js";
 dotenv.config({ path: "./config/.env" });
-const app = express();
 const port = process.env.PORT || 4000;
+dbConnect();
+const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
@@ -31,8 +32,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-dbConnect();
 
 app.get("/", (req, res) => {
   res.send("Hello World");
