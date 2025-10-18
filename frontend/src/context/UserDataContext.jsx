@@ -19,7 +19,9 @@ const UserDataProvider = ({ children }) => {
     async function fetchUserData() {
       try {
         const result = await axios.get(serverUrl + "/api/auth/userdata", {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         console.log(result.data);
@@ -66,7 +68,6 @@ const UserDataProvider = ({ children }) => {
         setEditProfile,
         reloginMsg,
         setReLoginMsg,
-        
       }}
     >
       {children}

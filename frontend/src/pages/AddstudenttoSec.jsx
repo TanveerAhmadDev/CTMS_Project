@@ -19,7 +19,11 @@ const AddstudenttoSec = () => {
       try {
         let section = await axios.get(
           serverUrl + `/api/section/findSectionById/${id}`,
-          { withCredentials: true }
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
 
         setSection(section.data[0]);

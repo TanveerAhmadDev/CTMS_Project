@@ -24,7 +24,9 @@ const CrDashboard = () => {
     try {
       let result = await axios.delete(
         serverUrl + `/api/task/deletetask/${id}`,
-        { withCredentials: true }
+        { headers: {
+    Authorization: `Bearer ${token}`,
+  }, }
       );
 
       console.log(result);

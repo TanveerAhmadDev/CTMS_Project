@@ -15,7 +15,9 @@ const Allsections = () => {
     const fetchSections = async () => {
       try {
         const result = await axios.get(serverUrl + "/api/section/getsections", {
-          withCredentials: true,
+   headers: {
+    Authorization: `Bearer ${token}`,
+  },
         });
         setSection(result.data);
       } catch (error) {

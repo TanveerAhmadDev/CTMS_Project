@@ -89,17 +89,18 @@ export const universalLogin = async (req, res) => {
 
 export const UserData = async (req, res) => {
   try {
-    const adminToken = req.cookies.adminToken;
-    const userToken = req.cookies.userToken;
+    const authHeader = req.headers.authorization;
 
-    if (adminToken) {
-      const decoded = jwt.verify(adminToken, process.env.JWT_SECRET);
-      const admin = await adminModel.findById(decoded.id).select("-password");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ message: "Unauthorized: No token" });
+    }
 
-      if (!admin) {
-        return res.status(404).json({ message: "Admin not found" });
-      }
+    const token = authHeader.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    // Check admin first
+    const admin = await adminModel.findById(decoded.id).select("-password");
+    if (admin) {
       return res.status(200).json({
         role: "admin",
         admin: {
@@ -110,56 +111,50 @@ export const UserData = async (req, res) => {
       });
     }
 
-    if (userToken) {
-      const decoded = jwt.verify(userToken, process.env.JWT_SECRET);
-      const user = await userModel
-        .findById(decoded.id)
-        .select("-Password")
-        .populate({
-          path: "section",
-          select: "sectionName tasks students",
-          populate: [
-            {
-              path: "tasks",
-              select:
-                "taskTitle sirName assginTime createdBy deadline description",
-              populate: {
-                path: "createdBy",
-                select: "userRole fullName",
-              },
+    // If not admin, check user
+    const user = await userModel
+      .findById(decoded.id)
+      .select("-Password")
+      .populate({
+        path: "section",
+        select: "sectionName tasks students",
+        populate: [
+          {
+            path: "tasks",
+            select: "taskTitle sirName assginTime createdBy deadline description",
+            populate: {
+              path: "createdBy",
+              select: "userRole fullName",
             },
-            {
-              path: "students",
-              select: "fullName userRole",
-            },
-          ],
-        });
-
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-
-      return res.status(200).json({
-        role: "user",
-        user: {
-          userId: user.id,
-          name: user.fullName,
-          Registration_NO: user.Registration_NO,
-          userRole: user.userRole,
-          email: user.email,
-          section: user.section,
-        },
+          },
+          {
+            path: "students",
+            select: "fullName userRole",
+          },
+        ],
       });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
 
-    return res.status(401).json({ msg: "Unautorized" });
+    return res.status(200).json({
+      role: "user",
+      user: {
+        userId: user.id,
+        name: user.fullName,
+        Registration_NO: user.Registration_NO,
+        userRole: user.userRole,
+        email: user.email,
+        section: user.section,
+      },
+    });
   } catch (error) {
     console.error("UserData Error:", error.message);
-    return res
-      .status(500)
-      .json({ message: "Server error", error: error.message });
+    return res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 export const logout = async (req, res) => {
   res.clearCookie("userToken", {
     httpOnly: true,

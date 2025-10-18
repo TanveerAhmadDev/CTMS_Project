@@ -54,7 +54,9 @@ const CreateTask = () => {
           date,
           description,
         },
-        { withCredentials: true }
+        { headers: {
+    Authorization: `Bearer ${token}`,
+  },}
       );
       console.log(result);
       console.log(date);

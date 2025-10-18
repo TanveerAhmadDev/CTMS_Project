@@ -29,7 +29,9 @@ const CreateSection = () => {
       let result = await axios.post(
         serverUrl + "/api/section/createsection",
         { sectionName },
-        { withCredentials: true }
+        {headers: {
+    Authorization: `Bearer ${token}`,
+  },}
       );
 
       toast.success(result.data.message);

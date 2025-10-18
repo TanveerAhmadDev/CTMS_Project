@@ -33,7 +33,9 @@ const CreateStudent = () => {
       let result = await axios.post(
         serverUrl + "/api/user/usersignup",
         { fullName, Registration_NO: upperRegNo, Password, userRole },
-        { withCredentials: true }
+        { headers: {
+    Authorization: `Bearer ${token}`,
+  }, }
       );
       console.log(result);
       setMsg(result?.data?.msg);
