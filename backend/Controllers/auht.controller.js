@@ -121,7 +121,7 @@ export const UserData = async (req, res) => {
         populate: [
           {
             path: "tasks",
-            select: "taskTitle sirName assginTime createdBy deadline description",
+            select: "taskTitle sirName assginTime createdBy deadline description subjectName",
             populate: {
               path: "createdBy",
               select: "userRole fullName",

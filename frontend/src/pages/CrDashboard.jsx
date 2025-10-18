@@ -71,6 +71,10 @@ const CrDashboard = () => {
                       <p className="text-[#656565] font-semibold">Sir name:</p>
                       <h1 className="font-semibold">{task.sirName}</h1>
                     </div>
+                    <div className="flex gap-1 flex-">
+                      <p className="text-[#656565] font-semibold">Subject Name:</p>
+                      <h1 className="font-semibold">{task.subjectName}</h1>
+                    </div>
 
                     <Button onClick={() => DeleteTask(task._id)}>
                       Delete Task
