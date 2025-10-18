@@ -40,6 +40,8 @@ const Login = () => {
       navigate(url);
       console.log(result);
     } catch (error) {
+      console.log(error);
+      
       const message = error?.response?.data?.message || "Login failed";
       setMessage(message);
       toast.error(message);
