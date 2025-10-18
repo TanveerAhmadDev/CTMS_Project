@@ -36,7 +36,7 @@ const StudentDashboard = () => {
                         <h1>{elem.subjectName}</h1>
                       </div>
                       <div className="flex gap-1 font-semibold">
-                        <p className="inline-block text-[#656565]">Cr:</p>
+                        <p className="inline-block text-[#656565]">Description:</p>
                         <h1> {elem.description}</h1>
                       </div>
 
