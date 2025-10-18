@@ -19,7 +19,7 @@ const corsOptions = {
   origin: function (origin, callback) {
     const allowedOrigins = [
       "http://localhost:5173",
-      `${process.env.Frontend_Url}:5173`,
+      "https://ctmsprojectfrontend.vercel.app",
     ];
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -45,5 +45,5 @@ app.use("/api/auth", AuthRouter);
 app.use("/api/task", taskRouter);
 
 app.listen(port, "0.0.0.0", () => {
-  console.log(`Server is running on ${process.env.Frontend_Url}:${port}`);
+  console.log(`Server is running on ${port}`);
 });
