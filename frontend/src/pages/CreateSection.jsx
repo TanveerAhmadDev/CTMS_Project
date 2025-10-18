@@ -25,7 +25,7 @@ const CreateSection = () => {
   const handleSudmit = async (e) => {
     try {
       e.preventDefault();
-
+const token = localStorage.getItem("token");
       let result = await axios.post(
         serverUrl + "/api/section/createsection",
         { sectionName },

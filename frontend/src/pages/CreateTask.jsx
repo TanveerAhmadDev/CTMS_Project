@@ -45,6 +45,7 @@ const CreateTask = () => {
 
   async function addTaskHandler() {
     try {
+      const token = localStorage.getItem("token");
       let result = await axios.post(
         serverUrl + "/api/task/addtask",
         {

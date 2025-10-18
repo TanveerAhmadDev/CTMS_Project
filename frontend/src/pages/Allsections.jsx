@@ -14,6 +14,7 @@ const Allsections = () => {
     // Define the async function inside the effect
     const fetchSections = async () => {
       try {
+        const token = localStorage.getItem("token");
         const result = await axios.get(serverUrl + "/api/section/getsections", {
    headers: {
     Authorization: `Bearer ${token}`,

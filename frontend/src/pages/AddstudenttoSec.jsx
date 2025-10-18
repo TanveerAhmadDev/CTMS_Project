@@ -17,6 +17,7 @@ const AddstudenttoSec = () => {
 
     const fetching = async () => {
       try {
+        const token = localStorage.getItem("token");
         let section = await axios.get(
           serverUrl + `/api/section/findSectionById/${id}`,
           {

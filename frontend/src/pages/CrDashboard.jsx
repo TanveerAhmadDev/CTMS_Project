@@ -22,6 +22,7 @@ const CrDashboard = () => {
     console.log(id);
 
     try {
+      const token = localStorage.getItem("token");
       let result = await axios.delete(
         serverUrl + `/api/task/deletetask/${id}`,
         { headers: {

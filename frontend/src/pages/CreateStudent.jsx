@@ -26,10 +26,10 @@ const CreateStudent = () => {
     try {
       e.preventDefault();
 
-      console.log("Btn is click");
+     
 
       const upperRegNo = Registration_NO.toUpperCase();
-
+const token = localStorage.getItem("token");
       let result = await axios.post(
         serverUrl + "/api/user/usersignup",
         { fullName, Registration_NO: upperRegNo, Password, userRole },
