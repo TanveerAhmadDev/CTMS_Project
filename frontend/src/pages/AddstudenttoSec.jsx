@@ -45,10 +45,15 @@ const AddstudenttoSec = () => {
     console.log(sectionName);
     console.log(studentId);
     try {
+      const token = localStorage.getItem("token");
       let result = await axios.post(
         serverUrl + `/api/section/addstudent`,
         { sectionName, studentId },
-        { withCredentials: true }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       console.log(result);
